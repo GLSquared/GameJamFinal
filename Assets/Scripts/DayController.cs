@@ -10,6 +10,7 @@ public class DayController : MonoBehaviour
     public float timeConstant = 60f;
     private float hour;
     private float minute;
+    private int lastMin = 0;
     private float endHour = 17;
     float counter;
     private StudioEventEmitter emitter;
@@ -33,6 +34,7 @@ public class DayController : MonoBehaviour
 
     private void Start()
     {
+        GetComponent<TaskManager>().UpdateDay();
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
         hour = 9;
 
@@ -47,6 +49,11 @@ public class DayController : MonoBehaviour
 
             counter += Time.deltaTime;
             minute = Mathf.Round(counter);
+            if (lastMin < minute)
+            {
+                lastMin = Mathf.RoundToInt(minute);
+                GetComponent<TaskManager>().UpdateMinute();
+            }
             float dayCompletion = hour / endHour * 100f;
             emitter.SetParameter("Workday", dayCompletion);
 

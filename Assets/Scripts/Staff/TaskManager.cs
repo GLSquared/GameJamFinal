@@ -21,16 +21,6 @@ public class TaskManager : MonoBehaviour
         return new Task(title, daysRemaining);
     }
 
-    public void AssignTask(Task task, Staff staff)
-    {
-        task.AssignedTo = staff;
-    }
-
-    public void UnAssignTask(Task task)
-    {
-        task.AssignedTo = null;
-    }
-
     public void CreateNewTask()
     {
         Tasks.Add(RandomTask());
@@ -42,11 +32,11 @@ public class TaskManager : MonoBehaviour
         Tasks.Remove(task);
     }
 
-    public void UpdateHour()
+    public void UpdateMinute()
     {
         foreach(Task task in Tasks)
         {
-            task.UpdateHour();
+            task.UpdateMinute();
         }
     }
 
@@ -56,8 +46,6 @@ public class TaskManager : MonoBehaviour
 
         foreach (Task task in Tasks)
         {
-            task.UpdateDay();
-
             if (task.Finished)
             {
                 CompleteTask(task);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using static Staff;
 
 public class Task
@@ -31,19 +32,18 @@ public class Task
         AssignedTo = assignedTo;
     }
 
-    public void UpdateHour()
+    public void UpdateMinute()
     {
         if (!Finished && AssignedTo != null)
         {
-            Completion = Math.Clamp(Completion + AssignedTo.Skill / 25, 0f, 100f);
+            Completion = Math.Clamp(Completion + (AssignedTo.Skill / 5f), 0f, 100f);
         }
-    }
 
-    public void UpdateDay()
-    {
-        if (!Finished && Completion >= 100f)
+        if (Completion >= 100f)
         {
             Finished = true;
+            AssignedTo = null;
+            GameObject.Find("GameManager").GetComponent<TaskManager>().CreateNewTask();
         }
     }
 }

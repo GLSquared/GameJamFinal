@@ -1,50 +1,66 @@
 using UnityEngine;
 
 [RequireComponent(typeof(GameManager))]
+[RequireComponent(typeof(GridBuildingManager))]
 public class BuildModeManager : MonoBehaviour
 {
     private GameManager gameManager;
+    private GridBuildingManager gridBuildingManager;
 
     private GameObject selectedObj;
-    private Vector3 lastPos;
-    private Vector3 originalPos;
+
+    [SerializeField]
+    private LayerMask furnitureLayerMask;
+
+    private GameObject lastTile;
+    private GameObject originalTile;
+
     private bool canPlace;
+
     private Transform furnitureHolder;
 
-    public void buildWithobject(GameObject obj)
+    public void buildWithObject(GameObject obj)
     {
-        furnitureHolder = GameObject.Find("Furniture").transform;
-        if (obj.transform.IsChildOf(furnitureHolder))
-        {
-            GameObject foundFurn = GetTopParent(obj);
-            originalPos = foundFurn.transform.position;
-            selectedObj = foundFurn;
-            setFurnLayer(selectedObj, 3);
-        }
-        else
-        {
-            selectedObj = Instantiate(obj);
-        }
+        selectedObj = Instantiate(obj);
+        selectedObj.layer = 2;
     }
-    
+
+    public void buildWithObject(GameObject tile, GameObject obj)
+    {
+        originalTile = tile;
+        selectedObj = GetTopParent(obj);
+        setFurnLayer(selectedObj, 2);
+    }
+
     public GameObject GetTopParent(GameObject obj)
     {
-
         GameObject top = obj;
         if (obj.transform.parent != furnitureHolder)
         {
-            top=GetTopParent(obj.transform.parent.gameObject);
+            top = GetTopParent(obj.transform.parent.gameObject);
         }
-        
+
         return top;
     }
 
+
     public void setFurnLayer(GameObject furn, int layerInt)
     {
+        furn.layer = layerInt;
+
         foreach (Transform t in furn.transform)
         {
             t.gameObject.layer = layerInt;
         }
+    }
+
+    public void posFurnAboveTile(GameObject tile, GameObject obj)
+    {
+        int bounds = GetComponent<GridBuildingManager>().buildingSize;
+
+        obj.transform.position = new Vector3(Mathf.Clamp(Mathf.Round(tile.transform.position.x), 0, bounds),
+            obj.transform.localScale.y / 2,
+            Mathf.Clamp(Mathf.Round(tile.transform.position.z), 0, bounds));
     }
 
     public void cancelBuild()
@@ -53,7 +69,7 @@ public class BuildModeManager : MonoBehaviour
         {
             if (selectedObj.transform.IsChildOf(furnitureHolder))
             {
-                selectedObj.transform.position = originalPos;
+                posFurnAboveTile(originalTile, selectedObj);
                 setFurnLayer(selectedObj, 0);
                 selectedObj = null;
             }
@@ -69,26 +85,65 @@ public class BuildModeManager : MonoBehaviour
     {
         if (selectedObj.transform.IsChildOf(furnitureHolder))
         {
-            selectedObj.transform.position = lastPos;
-            setFurnLayer(selectedObj, 0);
+            Tile original = originalTile.GetComponent<Tile>();
+            original.occupiedBy = null;
+            originalTile = null;
+
+            posFurnAboveTile(lastTile, selectedObj);
+            selectedObj.layer = 6;
+
+            Tile last = lastTile.GetComponent<Tile>();
+            last.occupiedBy = selectedObj;
+            lastTile = null;
+
             selectedObj = null;
         }
         else
         {
-            GameObject newFurn = Instantiate(selectedObj, lastPos, Quaternion.identity, furnitureHolder);
-            setFurnLayer(newFurn, 0);
+            int bounds = GetComponent<GridBuildingManager>().buildingSize;
+
+            GameObject newFurn = Instantiate(selectedObj,
+                new Vector3(Mathf.Clamp(Mathf.Round(lastTile.transform.position.x), 0, bounds),
+                selectedObj.transform.localScale.y / 2,
+                Mathf.Clamp(Mathf.Round(lastTile.transform.position.z), 0, bounds)),
+                selectedObj.transform.rotation, furnitureHolder);
+
+            newFurn.transform.parent = furnitureHolder.transform;
+
+            setFurnLayer(newFurn, 6);
 
             Desk desk = newFurn.GetComponent<Desk>();
             if (desk)
             {
                 GetComponent<GameManager>().desks.Add(desk);
             }
+
+            Tile tile = lastTile.GetComponent<Tile>();
+
+            if (tile != null)
+            {
+                tile.occupiedBy = newFurn;
+            }
+        }
+    }
+
+    public void Rotate()
+    {
+        if (selectedObj)
+        {
+            Quaternion rotation = selectedObj.transform.rotation;
+            rotation *= Quaternion.Euler(0, 90, 0);
+
+            selectedObj.transform.rotation = rotation;
         }
     }
 
     public void OnEnable()
     {
         gameManager = GetComponent<GameManager>();
+        gridBuildingManager = GetComponent<GridBuildingManager>();
+
+        furnitureHolder = GameObject.Find("Furniture").transform;
     }
 
     private void Update()
@@ -110,46 +165,53 @@ public class BuildModeManager : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100, 3))
                 {
-                    if (hit.transform.IsChildOf(furnitureHolder))
+                    Tile occupied = hit.transform.GetComponent<Tile>();
+                    print(occupied.occupiedBy);
+                    if (occupied != null && occupied.occupiedBy != null)
                     {
-                        GameObject furn = GetTopParent(hit.transform.gameObject);
-                        if (furn.GetComponent<Desk>())
-                        {
-                            GetComponent<GameManager>().SelectDesk(furn.GetComponent<Desk>());
-                        }
-                        else
-                        {
-                            buildWithobject(hit.transform.gameObject);
-                        }
+                        originalTile = hit.transform.gameObject;
+
+                        buildWithObject(hit.transform.gameObject, occupied.occupiedBy);
                     }
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Rotate();
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
             cancelBuild();
         }
-        
+
         if (selectedObj)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100, 3))
             {
-                int bounds = GetComponent<GridBuildingManager>().buildingSize;
-                lastPos = new Vector3(Mathf.Clamp(Mathf.Round(hit.point.x), 0, bounds), 
-                    selectedObj.transform.localScale.y / 2, 
-                    Mathf.Clamp(Mathf.Round(hit.point.z), 0, bounds));
-                
-                selectedObj.SetActive(true);
-                selectedObj.transform.position = lastPos;
+                lastTile = hit.transform.gameObject;
 
-                canPlace = !hit.transform.IsChildOf(furnitureHolder);
+                Tile tile = lastTile.GetComponent<Tile>();
+                if (tile != null && tile.occupiedBy == null)
+                {
+                    posFurnAboveTile(lastTile, selectedObj);
 
+                    selectedObj.SetActive(true);
+                    canPlace = true;
+                }
+                else
+                {
+                    selectedObj.SetActive(false);
+                    canPlace = false;
+                }
             }
             else
             {
+                selectedObj.SetActive(false);
                 canPlace = false;
             }
         }

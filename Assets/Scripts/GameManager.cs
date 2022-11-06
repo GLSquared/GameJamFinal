@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI popularityTxt;
     public TextMeshProUGUI staffTxt;
     public TextMeshProUGUI inflowTxt;
+    public TextMeshProUGUI expensesTxt;
     
     public List<Desk> desks;
 
@@ -29,8 +30,10 @@ public class GameManager : MonoBehaviour
     public GameObject panelHireBtn;
     public GameObject panelTaskBar;
     public GameObject panelTaskTitle;
+    public GameObject giveTaskBtn;
 
     public StaffManager staffManager;
+    public GameObject taskSelectionPanel;
     
     public void SelectDesk(Desk desk)
     {
@@ -39,7 +42,7 @@ public class GameManager : MonoBehaviour
         if (desk.staff != null)
         {
             //if has staff
-            selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = "Vacant";
+            selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = desk.staff.Name;
             panelHireBtn.SetActive(false);
             panelTaskBar.SetActive(true);
             panelTaskTitle.SetActive(true);
@@ -54,6 +57,11 @@ public class GameManager : MonoBehaviour
         }
         
         
+    }
+
+    public void SelectTaskForStaff()
+    {
+        taskSelectionPanel.GetComponent<TaskSelectionManager>().SelectTask(selectedDesk.GetComponent<Desk>().staff);
     }
     
     public void SelectDeskToHireFor()
@@ -117,25 +125,42 @@ public class GameManager : MonoBehaviour
         GetComponent<BuildModeManager>().buildWithobject((GameObject)Resources.Load("Buyables/Desk"));
     }
 
+    int GetTotalExpenses()
+    {
+        int totalExpenses = 0;
+        foreach (Staff staff in staffManager.ActiveStaff)
+        {
+            totalExpenses += staff.CurrentWage;
+        }
+
+        return totalExpenses;
+    }
+
     // Update is called once per frame
     void Update()
     {
         staffTxt.text = GetComponent<StaffManager>().ActiveStaff.Count.ToString();
         cashTxt.text = "$" + String.Format("{0:n0}", cash);
         popularityTxt.text = String.Format("{0:n0}", popularity);
+
+        expensesTxt.text = "$" + String.Format("{0:n0}", GetTotalExpenses()) + "/hr";
         
         if (selectedStaffPanel.activeSelf)
         {
             Desk desk = selectedDesk.GetComponent<Desk>();
             Task currentTask = staffManager.GetTaskFromStaff(desk.staff);
+            
+            giveTaskBtn.SetActive((currentTask==null) && (desk.staff!=null));
+            
             if (currentTask != null)
             {
-                panelTaskBar.transform.Find("Inner").GetComponent<RectTransform>().offsetMax = new Vector2(currentTask.Completion/100f, 1f);
+                float comp = currentTask.Completion;
+                panelTaskBar.transform.Find("Inner").GetComponent<RectTransform>().anchorMax = new Vector2(Mathf.Max(.1f, comp/100f), 1f);
                 panelTaskBar.transform.Find("TaskName").GetComponent<TextMeshProUGUI>().text = currentTask.Name;
             }
             else
             {
-                panelTaskBar.transform.Find("Inner").GetComponent<RectTransform>().offsetMax = new Vector2(1f, 1f);
+                panelTaskBar.transform.Find("Inner").GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
                 panelTaskBar.transform.Find("TaskName").GetComponent<TextMeshProUGUI>().text = "No tasks given";
             }
         }

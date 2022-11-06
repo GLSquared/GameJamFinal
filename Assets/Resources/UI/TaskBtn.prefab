@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4894092994676312759
+--- !u!1 &1998348892906289015
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4894092994676312758}
-  - component: {fileID: 4894092994676312763}
-  - component: {fileID: 4894092994676312760}
-  - component: {fileID: 4894092994676312761}
+  - component: {fileID: 3201378656499820636}
+  - component: {fileID: 7760252185878885617}
+  - component: {fileID: 1929873495841677365}
+  - component: {fileID: 5900202202933049749}
   m_Layer: 5
   m_Name: TaskBtn
   m_TagString: Untagged
@@ -19,19 +19,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4894092994676312758
+--- !u!224 &3201378656499820636
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092994676312759}
+  m_GameObject: {fileID: 1998348892906289015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4894092996581874856}
+  - {fileID: 357059460268824373}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -40,28 +40,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 377.7791, y: 56.1884}
   m_Pivot: {x: 0, y: 0.5}
---- !u!222 &4894092994676312763
+--- !u!222 &7760252185878885617
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092994676312759}
+  m_GameObject: {fileID: 1998348892906289015}
   m_CullTransparentMesh: 1
---- !u!114 &4894092994676312760
+--- !u!114 &1929873495841677365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092994676312759}
+  m_GameObject: {fileID: 1998348892906289015}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.75192994, b: 0.45882356, a: 1}
+  m_Color: {r: 0.53459114, g: 0.7651988, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -78,13 +78,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.11
---- !u!114 &4894092994676312761
+--- !u!114 &5900202202933049749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092994676312759}
+  m_GameObject: {fileID: 1998348892906289015}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -118,7 +118,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 4894092994676312760}
+  m_TargetGraphic: {fileID: 1929873495841677365}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -134,7 +134,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &4894092996581874857
+--- !u!1 &4652261011890123410
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,9 +142,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4894092996581874856}
-  - component: {fileID: 4894092996581874858}
-  - component: {fileID: 4894092996581874859}
+  - component: {fileID: 357059460268824373}
+  - component: {fileID: 3774125227950296666}
+  - component: {fileID: 3294516926269648525}
   m_Layer: 5
   m_Name: ApplicantName
   m_TagString: Untagged
@@ -152,19 +152,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4894092996581874856
+--- !u!224 &357059460268824373
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092996581874857}
+  m_GameObject: {fileID: 4652261011890123410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4894092994676312758}
+  m_Father: {fileID: 3201378656499820636}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -172,21 +172,21 @@ RectTransform:
   m_AnchoredPosition: {x: 3.393402, y: -1}
   m_SizeDelta: {x: 338.7533, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4894092996581874858
+--- !u!222 &3774125227950296666
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092996581874857}
+  m_GameObject: {fileID: 4652261011890123410}
   m_CullTransparentMesh: 1
---- !u!114 &4894092996581874859
+--- !u!114 &3294516926269648525
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4894092996581874857}
+  m_GameObject: {fileID: 4652261011890123410}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290961663
-  m_fontColor: {r: 1, g: 0.8784771, b: 0.76100624, a: 1}
+    rgba: 4288307006
+  m_fontColor: {r: 0.24302833, g: 0.3716953, b: 0.6037736, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

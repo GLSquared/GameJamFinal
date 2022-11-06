@@ -48,6 +48,7 @@ public class StaffManager : MonoBehaviour
     public void RecruitStaff(Staff newStaff)
     {
         ActiveStaff.Add(newStaff);
+        GetComponent<TaskManager>().CreateNewTask();
 
         foreach (Desk desk in gameManager.desks)
         {
@@ -64,6 +65,7 @@ public class StaffManager : MonoBehaviour
     {
         ActiveStaff.Add(newStaff);
         desk.staff = newStaff;
+        GetComponent<TaskManager>().CreateNewTask();
         gameManager.AddCharacterToDesk(desk.gameObject);
     }
 
