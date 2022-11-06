@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ProfitLoop()
     {
-        int profit = Mathf.CeilToInt(((popularity/10f) * (ratings/50f)));
+        int profit = Mathf.CeilToInt((popularity/20f) * (ratings/35f));
         cash += profit;
         DailyPofit += profit;
 
