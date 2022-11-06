@@ -122,7 +122,8 @@ public class GameManager : MonoBehaviour
 
     public void AddCharacterToDesk(GameObject desk)
     {
-        Instantiate(Resources.Load("Staff"), desk.transform.Find("WorkerPos"));
+        GameObject npc = Instantiate(Resources.Load("Staff"), desk.transform.Find("WorkerPos")) as GameObject;
+        npc.transform.GetChild(0).GetChild(Random.Range(0, npc.transform.GetChild(0).childCount - 1)).gameObject.SetActive(true);
     }
 
     public void RemoveCharacterFromDesk(GameObject desk)
