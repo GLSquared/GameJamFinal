@@ -12,6 +12,8 @@ public class BuildModeManager : MonoBehaviour
 
     private GameObject selectedObj;
 
+    private GameObject prefabEffect;
+
     [SerializeField]
     private LayerMask furnitureLayerMask;
 
@@ -118,6 +120,7 @@ public class BuildModeManager : MonoBehaviour
                     selectedObj.transform.rotation, furnitureHolder);
 
                 newFurn.transform.parent = furnitureHolder.transform;
+                GameObject instance = Instantiate(prefabEffect, newFurn.transform);
 
                 setFurnLayer(newFurn, 6);
 
@@ -154,6 +157,7 @@ public class BuildModeManager : MonoBehaviour
         gridBuildingManager = GetComponent<GridBuildingManager>();
 
         furnitureHolder = GameObject.Find("Furniture").transform;
+        prefabEffect = Resources.Load("Particle/PlacedItem") as GameObject;
     }
     
     public bool IsPointerOverUIElement()

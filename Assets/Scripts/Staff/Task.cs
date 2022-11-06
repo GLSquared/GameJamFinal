@@ -42,7 +42,7 @@ public class Task
         if (Completion >= 100f)
         {
             Finished = true;
-            AssignedTo = null;
+            
             GameObject.Find("GameManager").GetComponent<TaskManager>().CreateNewTask();
         }
     }

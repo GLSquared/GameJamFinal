@@ -39,6 +39,19 @@ public class GameManager : MonoBehaviour
     public GameObject buildModeUIPanel;
 
     public GameObject endOfDayStatsPanel;
+
+    public Desk GetDeskFromStaff(Staff staff)
+    {
+        foreach (Desk desk in desks)
+        {
+            print(desk.staff);
+            print(staff);
+            if (desk.staff == staff)
+                return desk;
+        }
+
+        return null;
+    }
     
     public void SelectDesk(Desk desk)
     {
@@ -61,8 +74,6 @@ public class GameManager : MonoBehaviour
             panelTaskBar.SetActive(false);
             panelTaskTitle.SetActive(false);
         }
-        
-        
     }
 
     public void SelectTaskForStaff()
@@ -117,6 +128,7 @@ public class GameManager : MonoBehaviour
         GetComponent<BuildModeManager>().setFurnLayer(ownerDesk, 6);
         ownerDesk.GetComponent<Desk>().staff = staffManager.CreateOwner("gab");
         AddCharacterToDesk(ownerDesk);
+        desks.Add(ownerDesk.GetComponent<Desk>());
         GetComponent<GridBuildingManager>().UpdateTiles();
         GetComponent<GridBuildingManager>().GetTile(ownerX, ownerY).occupiedBy = ownerDesk;
     }

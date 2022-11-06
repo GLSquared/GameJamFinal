@@ -8,6 +8,8 @@ public class TaskManager : MonoBehaviour
     private GameManager gameManager;
     private StaffManager staffManager;
 
+    private GameObject prefabEffect;
+
     private string[] Titles = new string[] { "Work work work", "More work work", "Work work work work" };
 
     public List<Task> Tasks = new List<Task>();
@@ -28,8 +30,9 @@ public class TaskManager : MonoBehaviour
     }
 
     public void CompleteTask(Task task)
-    {
-        transform.Find("TaskComplete").GetComponent<AudioSource>().Play();
+    { 
+        GameObject instance = Instantiate(prefabEffect, gameManager.GetDeskFromStaff(task.AssignedTo).gameObject.transform);
+        task.AssignedTo = null;
         DailyFinished.Add(task);
         Tasks.Remove(task);
     }
@@ -78,5 +81,6 @@ public class TaskManager : MonoBehaviour
     {
         gameManager = GetComponent<GameManager>();
         staffManager = GetComponent<StaffManager>();
+        prefabEffect = Resources.Load("Particle/TaskFinished") as GameObject;
     }
 }
