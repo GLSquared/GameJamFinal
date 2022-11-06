@@ -89,18 +89,9 @@ public class GameManager : MonoBehaviour
         cash += profit;
         DailyPofit += profit;
 
-        if (cash < 0)
-        {
-            //TODO
-            //game over scene
-        }
-        else
-        {
-            inflowTxt.text = "$" + String.Format("{0:n0}", profit*12) + "/hr";
-            yield return new WaitForSeconds(GetComponent<DayController>().timeConstant*(5f/60f));
-            StartCoroutine(ProfitLoop());
-        }
-        
+        inflowTxt.text = "$" + String.Format("{0:n0}", profit*12) + "/hr";
+        yield return new WaitForSeconds(GetComponent<DayController>().timeConstant*(5f/60f));
+        StartCoroutine(ProfitLoop());
         
     }
 
@@ -143,6 +134,13 @@ public class GameManager : MonoBehaviour
 
     public void EndDayStats()
     {
+
+        if (cash < 0)
+        {
+            //TODO
+            //game over scene
+        }
+        
         UpdateRatings();
         endOfDayStatsPanel.SetActive(true);
         endOfDayStatsPanel.transform.Find("Panel").Find("CompletedTasksTxt").GetComponent<TextMeshProUGUI>().text 
