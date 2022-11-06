@@ -34,9 +34,9 @@ public class TaskManager : MonoBehaviour
 
     public void UpdateMinute()
     {
-        foreach(Task task in Tasks)
+        for (int i = 0; i < Tasks.Count; i++)
         {
-            task.UpdateMinute();
+            Tasks[i].UpdateMinute();
         }
     }
 
