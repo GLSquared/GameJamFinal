@@ -26,6 +26,7 @@ public class BuildModeManager : MonoBehaviour
 
     public void buildWithObject(GameObject obj)
     {
+        transform.Find("PickUp").GetComponent<AudioSource>().Play();
         cancelBuild();
         selectedObj = Instantiate(obj);
         selectedObj.layer = 2;
@@ -33,6 +34,7 @@ public class BuildModeManager : MonoBehaviour
 
     public void buildWithObject(GameObject tile, GameObject obj)
     {
+        transform.Find("PickUp").GetComponent<AudioSource>().Play();
         originalTile = tile;
         selectedObj = GetTopParent(obj);
         setFurnLayer(selectedObj, 2);
@@ -91,6 +93,7 @@ public class BuildModeManager : MonoBehaviour
 
     public void PlaceDown()
     {
+        transform.Find("PlaceDown").GetComponent<AudioSource>().Play();
         if (selectedObj.transform.IsChildOf(furnitureHolder))
         {
             Tile original = originalTile.GetComponent<Tile>();
