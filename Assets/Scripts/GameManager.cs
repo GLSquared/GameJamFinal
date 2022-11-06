@@ -74,9 +74,17 @@ public class GameManager : MonoBehaviour
         {
             //if has staff
             selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = desk.staff.Name;
+            if (desk.staff.Type == Staff.SkillType.Manager)
+            {
+                selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = desk.staff.Name + "\nManager";
+                panelTaskBar.SetActive(false);
+                panelTaskTitle.SetActive(false);
+            } else
+            {
+                panelTaskBar.SetActive(true);
+                panelTaskTitle.SetActive(true);
+            }
             panelHireBtn.SetActive(false);
-            panelTaskBar.SetActive(true);
-            panelTaskTitle.SetActive(true);
         }
         else
         {
@@ -221,7 +229,7 @@ public class GameManager : MonoBehaviour
             Desk desk = selectedDesk.GetComponent<Desk>();
             Task currentTask = staffManager.GetTaskFromStaff(desk.staff);
             
-            giveTaskBtn.SetActive((currentTask==null) && (desk.staff!=null));
+            giveTaskBtn.SetActive((currentTask==null) && (desk.staff!=null) && (desk.staff.Type != Staff.SkillType.Manager));
             
             if (currentTask != null)
             {

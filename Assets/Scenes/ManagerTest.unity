@@ -878,6 +878,7 @@ MonoBehaviour:
   - Luke Zammit
   - Luke Zammit
   namesTxt: {fileID: 0}
+  managersOwned: 0
 --- !u!114 &33688287
 MonoBehaviour:
   m_ObjectHideFlags: 0
