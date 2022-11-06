@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{87e0be57-e6ee-4627-bbf5-ae66b509580b}">
+		<property name="assetPath">
+			<value>Gamjam Samples/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{231aee1f-a2bb-4067-8237-4040d4312ee9}</destination>
+		</relationship>
+	</object>
+</objects>

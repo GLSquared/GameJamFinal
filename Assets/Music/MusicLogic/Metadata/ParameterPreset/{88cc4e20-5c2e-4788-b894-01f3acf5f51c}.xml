@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{88cc4e20-5c2e-4788-b894-01f3acf5f51c}">
+		<property name="name">
+			<value>Workday</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c6fa58e8-f5f0-4aa7-921c-17645b6b3fa4}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{382fd568-1c50-4faa-a136-77c67ee0721a}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{382fd568-1c50-4faa-a136-77c67ee0721a}">
+		<property name="maximum">
+			<value>100</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
