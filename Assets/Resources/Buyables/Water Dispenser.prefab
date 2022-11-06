@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6402912164385656564}
   - component: {fileID: 8631950193398616832}
   - component: {fileID: -2882737849144182025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Water Dispenser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 7910225133062340704, guid: aa5a11e9326c14f3b81ad70077ef0c83, type: 3}
       propertyPath: m_Name
       value: WaterCooler_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910225133062340704, guid: aa5a11e9326c14f3b81ad70077ef0c83, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5a11e9326c14f3b81ad70077ef0c83, type: 3}

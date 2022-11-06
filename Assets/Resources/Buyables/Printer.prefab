@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3175972731669715414}
   - component: {fileID: 216801808761193506}
   - component: {fileID: -1600548368976844977}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Printer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,6 +178,10 @@ PrefabInstance:
     - target: {fileID: 2108171387450022667, guid: ea8d64d013ce24f7e834148a671015ec, type: 3}
       propertyPath: m_Name
       value: Xerox_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108171387450022667, guid: ea8d64d013ce24f7e834148a671015ec, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8d64d013ce24f7e834148a671015ec, type: 3}

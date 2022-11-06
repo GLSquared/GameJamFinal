@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3159495665304487415}
   - component: {fileID: 344990287300646915}
   - component: {fileID: 2029017032153984399}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +122,18 @@ PrefabInstance:
     - target: {fileID: 7230459761020502276, guid: 187a1153f15b5431c81e0f99590815ad, type: 3}
       propertyPath: m_Name
       value: Cabinet1_C3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230459761020502276, guid: 187a1153f15b5431c81e0f99590815ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230459761519967729, guid: 187a1153f15b5431c81e0f99590815ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230459762843442708, guid: 187a1153f15b5431c81e0f99590815ad, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8006292330255637438, guid: 187a1153f15b5431c81e0f99590815ad, type: 3}
       propertyPath: m_RootOrder

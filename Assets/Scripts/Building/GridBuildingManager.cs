@@ -96,8 +96,6 @@ public class GridBuildingManager : MonoBehaviour
                     }
                 }
             }
-
-
         }
 
 

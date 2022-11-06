@@ -46,7 +46,7 @@ public class CameraMovement : MonoBehaviour
 
         var skewedInput = matrix.MultiplyPoint3x4(input * camSpeed);
 
-        print(skewedInput);
+        //print(skewedInput);
         transform.position += new Vector3(skewedInput.x, 0, skewedInput.z);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), transform.position.y, Mathf.Clamp(transform.position.z, minZ, maxZ));
     }
