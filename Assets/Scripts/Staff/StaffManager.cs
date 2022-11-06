@@ -21,12 +21,20 @@ public class StaffManager : MonoBehaviour
 
     public TextAsset namesTxt;
 
+    public int managersOwned = 0;
+
     public Staff RandomStaff()
     {
         string name = Names[Random.Range(0, Names.Length)];
         SkillType skillType = SkillType.Developer;
         float skill = Random.Range(1f, 75f);
         int expectedWage = (int)(Mathf.Pow(skill, 1.15f) / 1.5f);
+        if (Random.Range(1, 8) > 6 && managersOwned <= 2)
+        {
+            skillType = SkillType.Manager;
+            skill = 100f;
+            expectedWage = (int)(Mathf.Pow(skill, 1.15f) / 1.5f);
+        }
         int maxDayWithBadMood = Random.Range(5, 10);
 
         return new Staff(name, expectedWage, skillType, skill, maxDayWithBadMood);
@@ -56,6 +64,9 @@ public class StaffManager : MonoBehaviour
     {
         ActiveStaff.Add(newStaff);
         GetComponent<TaskManager>().CreateNewTask();
+
+        if (newStaff.Type == SkillType.Manager)
+            managersOwned++;
 
         foreach (Desk desk in gameManager.desks)
         {
@@ -118,6 +129,25 @@ public class StaffManager : MonoBehaviour
             if (staff.Type != SkillType.Owner)
             {
                 gameManager.cash-=staff.CurrentWage;
+            }
+
+            if (staff.Type == SkillType.Manager)
+            {
+                List<Desk> inRadius = gameManager.GetDesksInRadius(staff, 10f);
+                List<Staff> notWorking = new List<Staff>();
+
+                foreach (Desk desk in inRadius)
+                {
+                    if (desk.staff != null && GetTaskFromStaff(desk.staff) == null)
+                    {
+                        List<Task> availableTasks = taskManager.GetUnassignedTasks();
+
+                        if (availableTasks.Count > 0)
+                        {
+                            availableTasks[0].AssignedTo = desk.staff;
+                        }
+                    }
+                }
             }
         }
     }

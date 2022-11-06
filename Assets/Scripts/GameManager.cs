@@ -44,13 +44,25 @@ public class GameManager : MonoBehaviour
     {
         foreach (Desk desk in desks)
         {
-            print(desk.staff);
-            print(staff);
             if (desk.staff == staff)
                 return desk;
         }
 
         return null;
+    }
+
+    public List<Desk> GetDesksInRadius(Staff staff, float radius)
+    {
+        List<Desk> desksInRad = new List<Desk>();
+        Desk deskCenter = GetDeskFromStaff(staff);
+
+        foreach (Desk desk in desks)
+        {
+            if (deskCenter!=desk && (deskCenter.transform.position - desk.transform.position).magnitude <= radius)
+                desksInRad.Add(desk);
+        }
+
+        return desksInRad;
     }
     
     public void SelectDesk(Desk desk)
