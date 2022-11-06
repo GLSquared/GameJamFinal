@@ -7,6 +7,7 @@ public class Desk : MonoBehaviour
 {
     public Staff staff;
     public Canvas canvas;
+    public Canvas managerCanvas;
     public StaffManager staffManager;
 
     private void Start()
@@ -18,6 +19,7 @@ public class Desk : MonoBehaviour
     {
         Camera camera = Camera.main;
         canvas.transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
+        managerCanvas.transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
 
         if ((staff!=null) && (staffManager.GetTaskFromStaff(staff)!=null))
         {
@@ -29,6 +31,11 @@ public class Desk : MonoBehaviour
         else
         {
             canvas.transform.gameObject.SetActive(false);
+        }
+
+        if ((staff != null) && (staff.Type == Staff.SkillType.Manager))
+        {
+            managerCanvas.transform.gameObject.SetActive(true);
         }
 
     }
