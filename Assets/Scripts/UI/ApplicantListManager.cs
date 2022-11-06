@@ -22,13 +22,18 @@ public class ApplicantListManager : MonoBehaviour
             GameObject applicantBtn =
                 Instantiate((GameObject)Resources.Load("UI/ApplicantBtn"), transform.Find("Panel"));
             applicantBtn.transform.Find("ApplicantName").GetComponent<TextMeshProUGUI>().text =
-                applicants[i].Staff.Name;
+                applicants[i].Staff.Type == Staff.SkillType.Manager ? "Manager" : applicants[i].Staff.Name;
             applicantBtn.transform.Find("Skill").GetComponent<TextMeshProUGUI>().text =
                 Mathf.RoundToInt(applicants[i].Staff.Skill) + " skill points";
             applicantBtn.transform.Find("Wage").GetComponent<TextMeshProUGUI>().text =
                 "$" + Mathf.RoundToInt(applicants[i].Staff.ExpectedWage) + "/hr";
 
-            Staff staff = applicants[i].Staff;
+            if (applicants[i].Staff.Type == Staff.SkillType.Manager)
+            {
+                applicantBtn.GetComponent<Image>().color = new Color(249f/255f, 68f/255f, 97f/255f);
+            }
+
+                Staff staff = applicants[i].Staff;
             applicantBtn.GetComponent<Button>().onClick.AddListener(() =>
             {
                 Destroy(applicantBtn);

@@ -10,7 +10,7 @@ public class TaskManager : MonoBehaviour
 
     private GameObject prefabEffect;
 
-    private string[] Titles = new string[] { "Work work work", "More work work", "Work work work work" };
+    private string[] Titles = new string[] { "Designing UI", "Maintaining Code", "Refactoring Code", "Merge with Git", "Drink Coffee", "Commit and Push to Git", "Read the news", "Code new feature", "Fix old feature", "Research about DateTime", "Stare at screen" };
 
     public List<Task> Tasks = new List<Task>();
     public List<Task> DailyFinished = new List<Task>();
@@ -35,6 +35,21 @@ public class TaskManager : MonoBehaviour
         task.AssignedTo = null;
         DailyFinished.Add(task);
         Tasks.Remove(task);
+    }
+
+    public List<Task> GetUnassignedTasks()
+    {
+        List<Task> listOfTasks = new List<Task>();
+
+        foreach(Task task in Tasks)
+        {
+            if (task.AssignedTo == null)
+            {
+                listOfTasks.Add(task);
+            }
+        }
+
+        return listOfTasks;
     }
 
     void CheckCompletedTasks()

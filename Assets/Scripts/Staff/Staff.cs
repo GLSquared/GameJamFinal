@@ -67,10 +67,6 @@ public class Staff
                     Skill = Math.Clamp(Skill + (0.001f * Mood) * (float)Math.Log(Skill), Skill, 100f);
                 }
             }
-            else if (Type == SkillType.Manager)
-            {
-
-            }
             else if (Type == SkillType.Owner)
             {
                 Skill = Math.Clamp(Skill + (0.001f * Mood) * (float)Math.Log(Skill), Skill, 100f);
