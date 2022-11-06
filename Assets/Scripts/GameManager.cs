@@ -72,7 +72,9 @@ public class GameManager : MonoBehaviour
 
     public void MoveSelectedDesk()
     {
-        GetComponent<BuildModeManager>().buildWithobject(selectedDesk);
+        GameObject origTile = GetComponent<GridBuildingManager>().GetTileOccupiedBy(selectedDesk).tilePiece;
+        GetComponent<BuildModeManager>().originalTile = origTile;
+        GetComponent<BuildModeManager>().buildWithObject(origTile, selectedDesk);
     }
 
     IEnumerator ProfitLoop()
@@ -97,11 +99,18 @@ public class GameManager : MonoBehaviour
     void AddOwner()
     {
         //add owner desk
-        GameObject ownerDesk = (GameObject)Instantiate(Resources.Load("Buyables/Desk"), new Vector3(1, .5f, 1), Quaternion.identity, 
+
+        int ownerX = 1;
+        int ownerY = 1;
+
+        GameObject ownerDesk = (GameObject)Instantiate(Resources.Load("Buyables/Desk"), new Vector3(ownerX, .5f, ownerY), Quaternion.identity, 
             GameObject.Find("Furniture").transform);
-        GetComponent<BuildModeManager>().setFurnLayer(ownerDesk, 0);
+        ownerDesk.layer = 6;
+        GetComponent<BuildModeManager>().setFurnLayer(ownerDesk, 6);
         ownerDesk.GetComponent<Desk>().staff = staffManager.CreateOwner("gab");
         AddCharacterToDesk(ownerDesk);
+        GetComponent<GridBuildingManager>().UpdateTiles();
+        GetComponent<GridBuildingManager>().GetTile(ownerX, ownerY).occupiedBy = ownerDesk;
     }
 
     public void AddCharacterToDesk(GameObject desk)
@@ -122,7 +131,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PopularityLoop());
         desks = new List<Desk>();
         AddOwner();
-        GetComponent<BuildModeManager>().buildWithobject((GameObject)Resources.Load("Buyables/Desk"));
+        GetComponent<BuildModeManager>().buildWithObject((GameObject)Resources.Load("Buyables/Desk"));
     }
 
     int GetTotalExpenses()
