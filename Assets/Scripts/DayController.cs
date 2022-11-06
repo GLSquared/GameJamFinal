@@ -9,9 +9,9 @@ public class DayController : MonoBehaviour
 {
     public float timeConstant = 60f;
     private int hour;
-    private int minute;
-    private int startHour = 9;
-    private int endHour = 17;
+    private float minute;
+    private int startHour = 1;
+    private float endHour = 17;
     private StudioEventEmitter emitter;
 
     private bool isDayOver = false;
@@ -38,10 +38,11 @@ public class DayController : MonoBehaviour
             minute++;
             GetComponent<TaskManager>().UpdateMinute();
             
-            float dayCompletion = hour / endHour * 100f;
+            float dayCompletion = (hour-8) / (endHour-8) * 100f;
+            print(dayCompletion);
             emitter.SetParameter("Workday", dayCompletion);
 
-            if (minute > 60)
+            if (minute > timeConstant)
             {
                 hour++;
                 minute = 0;
@@ -49,6 +50,8 @@ public class DayController : MonoBehaviour
                 if (hour > endHour)
                 {
                     isDayOver = true;
+                    emitter.Stop();
+                    this.enabled = false;
                 }
             }
             
@@ -67,7 +70,7 @@ public class DayController : MonoBehaviour
         GetComponent<TaskManager>().UpdateDay();
         
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-        hour = startHour;
+        hour = startHour + 8;
         
         StartCoroutine(IncrementMinutes());
     }
@@ -75,6 +78,7 @@ public class DayController : MonoBehaviour
     private void OnEnable()
     {
         isDayOver = false;
+        emitter.Play();
     }
 
     private void OnDisable()
