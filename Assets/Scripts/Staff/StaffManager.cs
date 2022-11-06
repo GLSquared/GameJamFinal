@@ -26,7 +26,7 @@ public class StaffManager : MonoBehaviour
         string name = Names[Random.Range(0, Names.Length)];
         SkillType skillType = SkillType.Developer;
         float skill = Random.Range(1f, 75f);
-        int expectedWage = (int)(skill / 2.5f);
+        int expectedWage = (int)(Mathf.Pow(skill, 1.15f) / 1.5f);
         int maxDayWithBadMood = Random.Range(5, 10);
 
         return new Staff(name, expectedWage, skillType, skill, maxDayWithBadMood);

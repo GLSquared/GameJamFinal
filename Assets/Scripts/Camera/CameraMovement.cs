@@ -15,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     int screenHeight;
 
     Vector3 dragOrigin;
-    float dragSpeed = 50f;
+    float dragSpeed = 35f;
 
     float minX, maxX, minZ, maxZ, distance;
 
@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        input = new Vector3(Input.GetAxis("Horizontal"), 10 , Input.GetAxis("Vertical"));
+        input = new Vector3(Input.GetAxis("Horizontal")/screenWidth, 10 , Input.GetAxis("Vertical")/screenHeight);
         move();
         DragMouse();
         zoom();

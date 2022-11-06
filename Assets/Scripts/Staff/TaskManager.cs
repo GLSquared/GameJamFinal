@@ -29,6 +29,7 @@ public class TaskManager : MonoBehaviour
 
     public void CompleteTask(Task task)
     {
+        transform.Find("TaskComplete").GetComponent<AudioSource>().Play();
         DailyFinished.Add(task);
         Tasks.Remove(task);
     }

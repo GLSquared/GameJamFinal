@@ -62,9 +62,11 @@ public class BuildModeManager : MonoBehaviour
     {
         int bounds = GetComponent<GridBuildingManager>().buildingSize;
 
-        obj.transform.position = new Vector3(Mathf.Clamp(Mathf.Round(tile.transform.position.x), 0, bounds),
+        Vector3 targPos = new Vector3(Mathf.Clamp(Mathf.Round(tile.transform.position.x), 0, bounds),
             obj.transform.localScale.y / 2,
             Mathf.Clamp(Mathf.Round(tile.transform.position.z), 0, bounds));
+        Vector3 pos = Vector3.Lerp(obj.transform.position, targPos, Time.deltaTime*40f);
+        obj.transform.position = pos;
     }
 
     public void cancelBuild()
@@ -89,7 +91,6 @@ public class BuildModeManager : MonoBehaviour
     {
         if (selectedObj.transform.IsChildOf(furnitureHolder))
         {
-            print("Burger");
             Tile original = originalTile.GetComponent<Tile>();
             original.occupiedBy = null;
             originalTile = null;

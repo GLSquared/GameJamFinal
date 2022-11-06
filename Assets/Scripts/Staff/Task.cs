@@ -36,7 +36,7 @@ public class Task
     {
         if (!Finished && AssignedTo != null)
         {
-            Completion = Math.Clamp(Completion + (AssignedTo.Skill / 5f), 0f, 100f);
+            Completion = Math.Clamp(Completion + (AssignedTo.Skill / 15f), 0f, 100f);
         }
 
         if (Completion >= 100f)

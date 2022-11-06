@@ -37,7 +37,7 @@ public class BuildModeUIManager : MonoBehaviour
 
     public void UpdateUpgradePrice()
     {
-        price = Mathf.RoundToInt(Mathf.Pow(GameObject.Find("GameManager").GetComponent<GridBuildingManager>().buildingSize, 2f) * 10f);
+        price = Mathf.RoundToInt(Mathf.Pow(GameObject.Find("GameManager").GetComponent<GridBuildingManager>().buildingSize, 3f) * 4f);
         transform.Find("UpgradeButton").Find("UpgradeText").GetComponent<TextMeshProUGUI>().text =
             "Upgrade building - $" + String.Format("{0:n0}", price);
     }

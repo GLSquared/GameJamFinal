@@ -88,10 +88,20 @@ public class GameManager : MonoBehaviour
         int profit = Mathf.CeilToInt(((popularity/10f) * (ratings/50f)));
         cash += profit;
         DailyPofit += profit;
+
+        if (cash < 0)
+        {
+            //TODO
+            //game over scene
+        }
+        else
+        {
+            inflowTxt.text = "$" + String.Format("{0:n0}", profit*12) + "/hr";
+            yield return new WaitForSeconds(GetComponent<DayController>().timeConstant*(5f/60f));
+            StartCoroutine(ProfitLoop());
+        }
         
-        inflowTxt.text = "$" + String.Format("{0:n0}", profit*12) + "/hr";
-        yield return new WaitForSeconds(GetComponent<DayController>().timeConstant*(5f/60f));
-        StartCoroutine(ProfitLoop());
+        
     }
 
     IEnumerator PopularityLoop()

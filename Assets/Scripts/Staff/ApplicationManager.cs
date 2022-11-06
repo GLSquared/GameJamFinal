@@ -13,7 +13,7 @@ public class Applicant
     public Applicant(Staff staff)
     {
         Staff = staff;
-        MaxTime = Random.Range(10, 20);
+        MaxTime = Random.Range(10, 60);
         Expires = Time.time + MaxTime;
     }
 }
@@ -25,7 +25,7 @@ public class ApplicationManager : MonoBehaviour
     GameManager gameManager;
     StaffManager staffManager;
 
-    public List<Applicant> Applicants = new List<Applicant>();
+    public List<Applicant> Applicants = new();
 
     private int availableDesks = 0;
     private int MaxApplicants = 10;
@@ -68,12 +68,10 @@ public class ApplicationManager : MonoBehaviour
                 availableDesks++;
             }
         }
-
         for (int i = Applicants.Count - 1; i >= 0; i--)
         {
             if (Applicants[i].Expires <= Time.time)
             {
-                //print("Removing applicant");
                 RevokeApplicant(Applicants[i]);
             }
         }   
@@ -83,14 +81,11 @@ public class ApplicationManager : MonoBehaviour
             Applicants.Clear();
         } else if (availableDesks > 0 && Applicants.Count < MaxApplicants)
         {
-            //print("Populating applicants");
             if (gameManager.askingWage == 0)
                 PopulateApplicants();
             else
                 PopulateApplicants(gameManager.askingWage);
         }
-
-        //print(Applicants.Count);
     }
 
     private void Update()
