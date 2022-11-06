@@ -8,10 +8,11 @@ using UnityEngine;
 public class DayController : MonoBehaviour
 {
     public float timeConstant = 60f;
-    private int hour;
-    private int minute;
-    private int startHour = 9;
-    private int endHour = 17;
+    private float hour;
+    private float minute;
+    private int lastMin = 0;
+    private float endHour = 17;
+    float counter;
     private StudioEventEmitter emitter;
 
     private bool isDayOver = false;
@@ -30,48 +31,46 @@ public class DayController : MonoBehaviour
     }
 
 
-    IEnumerator IncrementMinutes()
+
+    private void Start()
+    {
+        GetComponent<TaskManager>().UpdateDay();
+        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+        hour = 9;
+
+        counter = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         if (!isDayOver)
         {
 
-            minute++;
-            GetComponent<TaskManager>().UpdateMinute();
-            
+            counter += Time.deltaTime;
+            minute = Mathf.Round(counter);
+            if (lastMin < minute)
+            {
+                lastMin = Mathf.RoundToInt(minute);
+                GetComponent<TaskManager>().UpdateMinute();
+            }
             float dayCompletion = hour / endHour * 100f;
             emitter.SetParameter("Workday", dayCompletion);
 
-            if (minute > 60)
+
+            if (counter > timeConstant)
             {
                 hour++;
-                minute = 0;
+                counter = timeConstant;
 
                 if (hour > endHour)
                 {
                     isDayOver = true;
                 }
             }
-            
-        }
-
-        yield return new WaitForSeconds(1);
-
-        if (!isDayOver)
-        {
-            StartCoroutine(IncrementMinutes());
         }
     }
 
-    private void Start()
-    {
-        GetComponent<TaskManager>().UpdateDay();
-        
-        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-        hour = startHour;
-        
-        StartCoroutine(IncrementMinutes());
-    }
-    
     private void OnEnable()
     {
         isDayOver = false;
@@ -80,5 +79,6 @@ public class DayController : MonoBehaviour
     private void OnDisable()
     {
         hour = 1;
+        counter = timeConstant;
     }
 }

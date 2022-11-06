@@ -1,4 +1,3 @@
-using System.Reflection;
 using UnityEngine;
 
 [RequireComponent(typeof(GameManager))]
@@ -14,7 +13,7 @@ public class BuildModeManager : MonoBehaviour
     private LayerMask furnitureLayerMask;
 
     private GameObject lastTile;
-    public GameObject originalTile;
+    private GameObject originalTile;
 
     private bool canPlace;
 
@@ -166,22 +165,13 @@ public class BuildModeManager : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100, 3))
                 {
-                    
                     Tile occupied = hit.transform.GetComponent<Tile>();
+                    print(occupied.occupiedBy);
                     if (occupied != null && occupied.occupiedBy != null)
                     {
-                        
-                        Desk desk = occupied.occupiedBy.GetComponent<Desk>();
-                        if (desk)
-                        {
-                            GetComponent<GameManager>().SelectDesk(desk);
-                        }
-                        else
-                        {
-                            originalTile = hit.transform.gameObject;
+                        originalTile = hit.transform.gameObject;
 
-                            buildWithObject(hit.transform.gameObject, occupied.occupiedBy);
-                        }
+                        buildWithObject(hit.transform.gameObject, occupied.occupiedBy);
                     }
                 }
             }
@@ -206,7 +196,7 @@ public class BuildModeManager : MonoBehaviour
                 lastTile = hit.transform.gameObject;
 
                 Tile tile = lastTile.GetComponent<Tile>();
-                if (tile != null && (tile.occupiedBy == null || tile.occupiedBy == selectedObj) )
+                if (tile != null && tile.occupiedBy == null)
                 {
                     posFurnAboveTile(lastTile, selectedObj);
 

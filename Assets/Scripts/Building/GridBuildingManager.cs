@@ -45,35 +45,8 @@ public class GridBuildingManager : MonoBehaviour
         return tile;
     }
 
-    public Tile GetTileOccupiedBy(GameObject targ)
+    void UpdateTiles()
     {
-        Tile tile = null;
-
-        for (int x = 0; x < buildingSize; x++)
-        {
-            for (int y = 0; y < buildingSize; y++)
-            {
-                if (buildingMap[x].rowTiles[y].occupiedBy == targ)
-                {
-                    tile = buildingMap[x].rowTiles[y];
-                }
-            }
-        }
-        
-        return tile;
-    }
-
-    public Tile GetTile(int x, int y)
-    {
-        return buildingMap[x].rowTiles[y];
-    }
-
-    public void UpdateTiles()
-    {
-        wallsHolder = GameObject.Find("Walls");
-        tileHolder = GameObject.Find("TileArea");
-        darkTile = (GameObject)Resources.Load("DarkTile");
-        lightTile = (GameObject)Resources.Load("LightTile");
         for (int x = 0; x < buildingSize; x++)
         {
 
@@ -123,6 +96,10 @@ public class GridBuildingManager : MonoBehaviour
 
     void Start()
     {
+        wallsHolder = GameObject.Find("Walls");
+        tileHolder = GameObject.Find("TileArea");
+        darkTile = (GameObject)Resources.Load("DarkTile");
+        lightTile = (GameObject)Resources.Load("LightTile");
         UpdateTiles();
 
     }
