@@ -114,6 +114,7 @@ public class BuildModeManager : MonoBehaviour
             if (selectedObj.GetComponent<Buyable>().price <= GetComponent<GameManager>().cash)
             {
                 GetComponent<GameManager>().cash -= selectedObj.GetComponent<Buyable>().price;
+                transform.Find("Kaching").GetComponent<AudioSource>().Play();
                 int bounds = GetComponent<GridBuildingManager>().buildingSize;
 
                 GameObject newFurn = Instantiate(selectedObj,

@@ -15,7 +15,7 @@ public class ButtonManager : MonoBehaviour {
     public void startGame()
     {
         buttonPress.Play(0);
-        SceneManager.LoadScene("BuildingScene");
+        SceneManager.LoadScene("CarsTest");
     }
 
     public void quitGame()
