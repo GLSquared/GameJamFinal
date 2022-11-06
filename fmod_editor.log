@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000016F60F5D938 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001B01AC00528 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -18,6 +18,39 @@
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
+[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
+[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
+[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
+[WRN] FMOD_OS_Net_Listen                       : Cannot listen for connections, port 9264 is currently in use.
+[LOG] SoundI::release                          :  (000001B0A9E76478)
+[LOG] SoundI::release                          :     bassDay (000001B0A0AFB8A8)
+[LOG] SoundI::release                          :  (000001B0A9E782A8)
+[LOG] SoundI::release                          :     pianoNoon (000001AFF3A00CE8)
+[LOG] SoundI::release                          :  (000001B0A9E77A08)
+[LOG] SoundI::release                          :     drumsDay (000001B019F07E18)
+[LOG] SoundI::release                          :  (000001B0A9E74C08)
+[LOG] SoundI::release                          :     drumsNoon (000001AFF3A004C8)
+[LOG] SoundI::release                          :  (000001B0A9E77728)
+[LOG] SoundI::release                          :     bassEnd (000001B0A0AFBF28)
+[LOG] SoundI::release                          :  (000001B0A9E76308)
+[LOG] SoundI::release                          :     pianoEnd (000001B019F07AD8)
+[LOG] SoundI::release                          :  (000001B0A9E77B78)
+[LOG] SoundI::release                          :     bassNoon (000001AFF3A00668)
+[LOG] SoundI::release                          :  (000001B0A9E75D48)
+[LOG] SoundI::release                          :     PianoDay (000001B0A0AFB568)
+[LOG] SoundI::release                          :  (000001B0A9E78868)
+[LOG] SoundI::release                          :     drumEnd (000001B0A0AFBBE8)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 

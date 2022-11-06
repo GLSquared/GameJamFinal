@@ -210,18 +210,18 @@ public class BuildModeManager : MonoBehaviour
                 {
                     posFurnAboveTile(lastTile, selectedObj);
 
-                    selectedObj.SetActive(true);
+                    //selectedObj.SetActive(true);
                     canPlace = true;
                 }
                 else
                 {
-                    selectedObj.SetActive(false);
+                    //selectedObj.SetActive(false);
                     canPlace = false;
                 }
             }
             else
             {
-                selectedObj.SetActive(false);
+                //selectedObj.SetActive(false);
                 canPlace = false;
             }
         }
