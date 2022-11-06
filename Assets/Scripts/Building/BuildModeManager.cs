@@ -89,6 +89,7 @@ public class BuildModeManager : MonoBehaviour
     {
         if (selectedObj.transform.IsChildOf(furnitureHolder))
         {
+            print("Burger");
             Tile original = originalTile.GetComponent<Tile>();
             original.occupiedBy = null;
             originalTile = null;
@@ -204,7 +205,7 @@ public class BuildModeManager : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 100, 3))
                     {
-                    
+                        
                         Tile occupied = hit.transform.GetComponent<Tile>();
                         if (occupied != null && occupied.occupiedBy != null)
                         {

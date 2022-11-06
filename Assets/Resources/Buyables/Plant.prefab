@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6681621054626703639}
   - component: {fileID: 8334065820381754595}
   - component: {fileID: 4060688260711760123}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +122,10 @@ PrefabInstance:
     - target: {fileID: 4850338053761795566, guid: 7a83e24455e7a4783a716303245a5ac6, type: 3}
       propertyPath: m_Name
       value: Plant_06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850338053761795566, guid: 7a83e24455e7a4783a716303245a5ac6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5189286338930171732, guid: 7a83e24455e7a4783a716303245a5ac6, type: 3}
       propertyPath: m_RootOrder

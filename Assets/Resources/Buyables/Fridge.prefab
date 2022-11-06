@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2589307030308371291}
   - component: {fileID: 936325691864786607}
   - component: {fileID: 7011385668911769477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,6 +119,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5899662646941493850}
     m_Modifications:
+    - target: {fileID: 2435329543958732350, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2655178203660849162, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -171,9 +175,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2931761564558844552, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3428020170308766384, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
       propertyPath: m_Name
       value: Refrigerator_01L
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428020170308766384, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658395685119489218, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3788154414130228069, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -183,10 +199,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 793f478d17192415ebe0cee202b6578d, type: 2}
+    - target: {fileID: 5651290685435541624, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6155741879447345581, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 793f478d17192415ebe0cee202b6578d, type: 2}
+    - target: {fileID: 6784300441056827469, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081156905060014007, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e092902aa4081419cb562aa818de3fe4, type: 3}
 --- !u!4 &3593365085478001162 stripped

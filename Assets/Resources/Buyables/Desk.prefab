@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8986413529886956313}
   - component: {fileID: 997075419077263896}
   - component: {fileID: -2874875026815211487}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Desk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 5560212834934799036}
   - component: {fileID: 4439682732826919631}
   - component: {fileID: 5692358958142824425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WorkerPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,15 +293,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1835142296640701903, guid: 0da866785c3b84917baf5d1ae183a413, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1835142296658130208, guid: 0da866785c3b84917baf5d1ae183a413, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1835142297960450955, guid: 0da866785c3b84917baf5d1ae183a413, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1835142298167772445, guid: 0da866785c3b84917baf5d1ae183a413, type: 3}
       propertyPath: m_Name
@@ -309,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1835142298167772445, guid: 0da866785c3b84917baf5d1ae183a413, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0da866785c3b84917baf5d1ae183a413, type: 3}
@@ -373,6 +373,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Notebook2_C1
       objectReference: {fileID: 0}
+    - target: {fileID: 995412396806041332, guid: f81ee71a8fbad45e88283b64602562c7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f81ee71a8fbad45e88283b64602562c7, type: 3}
 --- !u!4 &2669925655085065567 stripped
@@ -393,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719301922161123232, guid: 18d69c689e00740cab8c0a6234853cf2, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2060396080968697114, guid: 18d69c689e00740cab8c0a6234853cf2, type: 3}
       propertyPath: m_RootOrder
@@ -468,6 +472,10 @@ PrefabInstance:
     - target: {fileID: 3621387322807785267, guid: 6e2e545c119664002ad786dd510684ba, type: 3}
       propertyPath: m_Name
       value: Pen_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621387322807785267, guid: 6e2e545c119664002ad786dd510684ba, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4110115450430410121, guid: 6e2e545c119664002ad786dd510684ba, type: 3}
       propertyPath: m_RootOrder
@@ -587,6 +595,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pendulum_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1877419140132130015, guid: 3516ae6dc4b5d43df8157d05f4857da4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3516ae6dc4b5d43df8157d05f4857da4, type: 3}
 --- !u!4 &6131098197194706101 stripped
@@ -648,6 +660,10 @@ PrefabInstance:
     - target: {fileID: 4554481575229460651, guid: 74856b70fe43841bf8fc9033b700c057, type: 3}
       propertyPath: m_Name
       value: Laptop_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554481575229460651, guid: 74856b70fe43841bf8fc9033b700c057, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74856b70fe43841bf8fc9033b700c057, type: 3}
