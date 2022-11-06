@@ -1,7 +1,11 @@
+using FMOD;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using static Staff;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(GameManager))]
 [RequireComponent(typeof(TaskManager))]
@@ -10,9 +14,12 @@ public class StaffManager : MonoBehaviour
     private GameManager gameManager;
     private TaskManager taskManager;
 
-    public string[] Names = new string[] { "Gabriel Bonello", "Luke Musu", "Luke Zammit" };
+    //public string[] Names = new string[] { "Gabriel Bonello", "Luke Musu", "Luke Zammit" };
+    public string[] Names = new string[500];
 
     public List<Staff> ActiveStaff = new List<Staff>();
+
+    public TextAsset namesTxt;
 
     public Staff RandomStaff()
     {
@@ -132,5 +139,25 @@ public class StaffManager : MonoBehaviour
     {
         gameManager = GetComponent<GameManager>();
         taskManager = GetComponent<TaskManager>();
+    }
+
+    public void populateNamesArray()
+    {
+        String text = File.ReadAllText("Assets/Scripts/Staff/names.txt");
+
+
+        char[] seperator = { '\n' };
+        string[] strValues = text.Split(seperator);
+
+
+        for (int i = 0; i < 500; i++)
+        {
+            Names[i] = strValues[i];
+        }
+    }
+
+    private void Start()
+    {
+        populateNamesArray();
     }
 }
