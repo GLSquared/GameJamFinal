@@ -12,6 +12,7 @@ public class TaskManager : MonoBehaviour
 
     public List<Task> Tasks = new List<Task>();
     public List<Task> DailyFinished = new List<Task>();
+    public int TargetDailyTasks;
 
     public Task RandomTask()
     {
@@ -32,25 +33,34 @@ public class TaskManager : MonoBehaviour
         Tasks.Remove(task);
     }
 
+    void CheckCompletedTasks()
+    {
+        for (int i = 0; i < Tasks.Count; i++)
+        {
+            Task task = Tasks[i];
+            if (task.Finished)
+            {
+                CompleteTask(task);
+            }
+        }
+    }
+
     public void UpdateMinute()
     {
         for (int i = 0; i < Tasks.Count; i++)
         {
             Tasks[i].UpdateMinute();
         }
+
+        CheckCompletedTasks();
     }
 
     public void UpdateDay()
     {
+        TargetDailyTasks = GetComponent<StaffManager>().ActiveStaff.Count * 4;
         DailyFinished = new List<Task>();
 
-        foreach (Task task in Tasks)
-        {
-            if (task.Finished)
-            {
-                CompleteTask(task);
-            }
-        }
+        CheckCompletedTasks();
 
         if (Tasks.Count < staffManager.ActiveStaff.Count)
         {

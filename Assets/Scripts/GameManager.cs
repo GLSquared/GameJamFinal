@@ -34,10 +34,12 @@ public class GameManager : MonoBehaviour
 
     public StaffManager staffManager;
     public GameObject taskSelectionPanel;
+    public GameObject buildModeUIPanel;
     
     public void SelectDesk(Desk desk)
     {
         selectedStaffPanel.SetActive(true);
+        buildModeUIPanel.SetActive(false);
         selectedDesk = desk.gameObject;
         if (desk.staff != null)
         {
@@ -131,7 +133,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PopularityLoop());
         desks = new List<Desk>();
         AddOwner();
-        GetComponent<BuildModeManager>().buildWithObject((GameObject)Resources.Load("Buyables/Desk"));
     }
 
     int GetTotalExpenses()

@@ -110,7 +110,7 @@ public class StaffManager : MonoBehaviour
 
             if (staff.Type != SkillType.Owner)
             {
-                //gameManager.PayWage(staff.CurrentWage);
+                gameManager.cash-=staff.CurrentWage;
             }
         }
     }

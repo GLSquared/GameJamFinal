@@ -1,8 +1,6 @@
 using FMODUnity;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class DayController : MonoBehaviour
@@ -10,9 +8,10 @@ public class DayController : MonoBehaviour
     public float timeConstant = 60f;
     private int hour;
     private float minute;
-    private int startHour = 1;
+    private int startHour = 8;
     private float endHour = 17;
     private StudioEventEmitter emitter;
+    public float dayCompletion;
 
     private bool isDayOver = false;
 
@@ -38,13 +37,13 @@ public class DayController : MonoBehaviour
             minute++;
             GetComponent<TaskManager>().UpdateMinute();
             
-            float dayCompletion = (hour-8) / (endHour-8) * 100f;
-            print(dayCompletion);
+            dayCompletion = (hour-8) / (endHour-8) * 100f;
             emitter.SetParameter("Workday", dayCompletion);
 
             if (minute > timeConstant)
             {
                 hour++;
+                GetComponent<StaffManager>().UpdateHour();
                 minute = 0;
 
                 if (hour > endHour)
@@ -57,7 +56,7 @@ public class DayController : MonoBehaviour
             
         }
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(timeConstant/60f);
 
         if (!isDayOver)
         {
@@ -70,19 +69,20 @@ public class DayController : MonoBehaviour
         GetComponent<TaskManager>().UpdateDay();
         
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
-        hour = startHour + 8;
+        hour = startHour;
         
         StartCoroutine(IncrementMinutes());
     }
     
     private void OnEnable()
     {
+        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
         isDayOver = false;
         emitter.Play();
     }
 
     private void OnDisable()
     {
-        hour = 1;
+        hour = startHour;
     }
 }

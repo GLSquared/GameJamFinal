@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(GameManager))]
 [RequireComponent(typeof(GridBuildingManager))]
@@ -22,6 +24,7 @@ public class BuildModeManager : MonoBehaviour
 
     public void buildWithObject(GameObject obj)
     {
+        cancelBuild();
         selectedObj = Instantiate(obj);
         selectedObj.layer = 2;
     }
@@ -101,29 +104,33 @@ public class BuildModeManager : MonoBehaviour
         }
         else
         {
-            int bounds = GetComponent<GridBuildingManager>().buildingSize;
-
-            GameObject newFurn = Instantiate(selectedObj,
-                new Vector3(Mathf.Clamp(Mathf.Round(lastTile.transform.position.x), 0, bounds),
-                selectedObj.transform.localScale.y / 2,
-                Mathf.Clamp(Mathf.Round(lastTile.transform.position.z), 0, bounds)),
-                selectedObj.transform.rotation, furnitureHolder);
-
-            newFurn.transform.parent = furnitureHolder.transform;
-
-            setFurnLayer(newFurn, 6);
-
-            Desk desk = newFurn.GetComponent<Desk>();
-            if (desk)
+            if (selectedObj.GetComponent<Buyable>().price <= GetComponent<GameManager>().cash)
             {
-                GetComponent<GameManager>().desks.Add(desk);
-            }
+                GetComponent<GameManager>().cash -= selectedObj.GetComponent<Buyable>().price;
+                int bounds = GetComponent<GridBuildingManager>().buildingSize;
 
-            Tile tile = lastTile.GetComponent<Tile>();
+                GameObject newFurn = Instantiate(selectedObj,
+                    new Vector3(Mathf.Clamp(Mathf.Round(lastTile.transform.position.x), 0, bounds),
+                        selectedObj.transform.localScale.y / 2,
+                        Mathf.Clamp(Mathf.Round(lastTile.transform.position.z), 0, bounds)),
+                    selectedObj.transform.rotation, furnitureHolder);
 
-            if (tile != null)
-            {
-                tile.occupiedBy = newFurn;
+                newFurn.transform.parent = furnitureHolder.transform;
+
+                setFurnLayer(newFurn, 6);
+
+                Desk desk = newFurn.GetComponent<Desk>();
+                if (desk)
+                {
+                    GetComponent<GameManager>().desks.Add(desk);
+                }
+
+                Tile tile = lastTile.GetComponent<Tile>();
+
+                if (tile != null)
+                {
+                    tile.occupiedBy = newFurn;
+                }
             }
         }
     }
@@ -146,41 +153,73 @@ public class BuildModeManager : MonoBehaviour
 
         furnitureHolder = GameObject.Find("Furniture").transform;
     }
+    
+    public bool IsPointerOverUIElement()
+    {
+        return IsPointerOverUIElement(GetEventSystemRaycastResults());
+    }
+ 
+ 
+    //Returns 'true' if we touched or hovering on Unity UI element.
+    private bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
+    {
+        for (int index = 0; index < eventSystemRaysastResults.Count; index++)
+        {
+            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
+            if (curRaysastResult.gameObject.layer == 5)
+                return true;
+        }
+        return false;
+    }
+ 
+ 
+    //Gets all event system raycast results of current mouse or touch position.
+    static List<RaycastResult> GetEventSystemRaycastResults()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raysastResults);
+        return raysastResults;
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //place down object
-            if (selectedObj != null)
+            if (!IsPointerOverUIElement())
             {
-                if (canPlace)
+                //place down object
+                if (selectedObj != null)
                 {
-                    PlaceDown();
-                }
-            }
-            else
-            {
-                //select object to move
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100, 3))
-                {
-                    
-                    Tile occupied = hit.transform.GetComponent<Tile>();
-                    if (occupied != null && occupied.occupiedBy != null)
+                    if (canPlace)
                     {
+                        PlaceDown();
+                    }
+                }
+                else
+                {
+                    //select object to move
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100, 3))
+                    {
+                    
+                        Tile occupied = hit.transform.GetComponent<Tile>();
+                        if (occupied != null && occupied.occupiedBy != null)
+                        {
                         
-                        Desk desk = occupied.occupiedBy.GetComponent<Desk>();
-                        if (desk)
-                        {
-                            GetComponent<GameManager>().SelectDesk(desk);
-                        }
-                        else
-                        {
-                            originalTile = hit.transform.gameObject;
+                            Desk desk = occupied.occupiedBy.GetComponent<Desk>();
+                            if (desk)
+                            {
+                                GetComponent<GameManager>().SelectDesk(desk);
+                            }
+                            else
+                            {
+                                originalTile = hit.transform.gameObject;
 
-                            buildWithObject(hit.transform.gameObject, occupied.occupiedBy);
+                                buildWithObject(hit.transform.gameObject, occupied.occupiedBy);
+                            }
                         }
                     }
                 }
