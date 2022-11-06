@@ -86,20 +86,23 @@ public class CameraMovement : MonoBehaviour
 
     IEnumerator GetClampDistance()
     {
-        yield return new WaitForSeconds(1);
-        GameObject tilearea = GameObject.Find("TileArea");
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            GameObject tilearea = GameObject.Find("TileArea");
 
-        GameObject firstTile = tilearea.transform.GetChild(0).gameObject;
-        GameObject lastTile = tilearea.transform.GetChild(tilearea.transform.childCount-1).gameObject;
+            GameObject firstTile = tilearea.transform.GetChild(0).gameObject;
+            GameObject lastTile = tilearea.transform.GetChild(tilearea.transform.childCount-1).gameObject;
 
 
-        distance = (lastTile.transform.position - firstTile.transform.position).magnitude;
-        print(distance);
+            distance = (lastTile.transform.position - firstTile.transform.position).magnitude;
+            print(distance);
 
-        minX = -distance*2;
-        maxX = distance/2;
-        minZ = -distance*2;
-        maxZ = distance/2;
+            minX = -distance*2;
+            maxX = distance/2;
+            minZ = -distance*2;
+            maxZ = distance/2;
+        }
     }
 
 }
