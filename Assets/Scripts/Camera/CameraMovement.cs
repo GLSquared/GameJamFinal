@@ -13,15 +13,11 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] float borderSize = 0.05f;
     int screenWidth;
     int screenHeight;
-    float moveBorderLeft;
-    float moveBorderTop;
-    float moveBorderRight;
-    float moveBorderBottom;
-    float marginHorizontal;
-    float marginVertical;
 
     Vector3 dragOrigin;
     float dragSpeed = 50f;
+
+    float minX, maxX, minZ, maxZ, distance;
 
 
     // Start is called before the first frame update
@@ -32,13 +28,7 @@ public class CameraMovement : MonoBehaviour
         screenWidth = mainCam.pixelWidth;
         screenHeight = mainCam.pixelHeight;
 
-        marginHorizontal = screenWidth * borderSize;
-        marginVertical = screenHeight * borderSize;
-
-        moveBorderLeft = 0 + marginHorizontal;
-        moveBorderTop = screenHeight - marginVertical;
-        moveBorderRight = screenWidth - marginHorizontal;
-        moveBorderBottom = 0 + marginVertical;
+        StartCoroutine(GetClampDistance());
 
     }
 
@@ -56,27 +46,9 @@ public class CameraMovement : MonoBehaviour
 
         var skewedInput = matrix.MultiplyPoint3x4(input * camSpeed);
 
+        print(skewedInput);
         transform.position += new Vector3(skewedInput.x, 0, skewedInput.z);
-    }
-
-    void mouseMove()
-    {
-        if (Input.mousePosition.x <= moveBorderLeft  ||
-            Input.mousePosition.x >= moveBorderRight ||
-            Input.mousePosition.y >= moveBorderTop   ||
-            Input.mousePosition.y <= moveBorderBottom)
-        {
-            Vector3 mousePos = Input.mousePosition;
-            Vector3 screenCenter = new Vector3(mainCam.pixelWidth/2, mainCam.pixelHeight/2);
-            Vector3 worldCenterToScreen = mainCam.ScreenToWorldPoint(screenCenter);
-
-            Vector3 mouseToWorldPoint = mainCam.ScreenToWorldPoint(mousePos);
-
-            Vector3 dir = (mouseToWorldPoint - worldCenterToScreen).normalized;
-            //print(screenCenter);
-
-            transform.position = transform.position + new Vector3(dir.x, 0, dir.y) * camSpeed;
-        }
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), transform.position.y, Mathf.Clamp(transform.position.z, minZ, maxZ));
     }
 
     void zoom()
@@ -110,6 +82,24 @@ public class CameraMovement : MonoBehaviour
         var skewedInput = matrix.MultiplyPoint3x4(-newPosition);
         // translates to the opposite direction of mouse position.
         transform.position += skewedInput * dragSpeed * Time.deltaTime;
+    }
+
+    IEnumerator GetClampDistance()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject tilearea = GameObject.Find("TileArea");
+
+        GameObject firstTile = tilearea.transform.GetChild(0).gameObject;
+        GameObject lastTile = tilearea.transform.GetChild(tilearea.transform.childCount-1).gameObject;
+
+
+        distance = (lastTile.transform.position - firstTile.transform.position).magnitude;
+        print(distance);
+
+        minX = -distance*2;
+        maxX = distance/2;
+        minZ = -distance*2;
+        maxZ = distance/2;
     }
 
 }
