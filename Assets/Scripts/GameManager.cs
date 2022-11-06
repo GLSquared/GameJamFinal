@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(BuildModeManager))]
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int ratings = 50;
     public int cash = 100;
     public int askingWage = 0;
+    public int DailyPofit = 0;
     
     public TextMeshProUGUI cashTxt;
     public TextMeshProUGUI popularityTxt;
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
     public StaffManager staffManager;
     public GameObject taskSelectionPanel;
     public GameObject buildModeUIPanel;
+
+    public GameObject endOfDayStatsPanel;
     
     public void SelectDesk(Desk desk)
     {
@@ -83,6 +87,7 @@ public class GameManager : MonoBehaviour
     {
         int profit = Mathf.CeilToInt(((popularity/10f) * (ratings/50f)));
         cash += profit;
+        DailyPofit += profit;
         
         inflowTxt.text = "$" + String.Format("{0:n0}", profit*12) + "/hr";
         yield return new WaitForSeconds(GetComponent<DayController>().timeConstant*(5f/60f));
@@ -123,6 +128,28 @@ public class GameManager : MonoBehaviour
     public void RemoveCharacterFromDesk(GameObject desk)
     {
         Destroy(desk.transform.Find("WorkerPos").GetChild(0));
+    }
+
+    public void EndDayStats()
+    {
+        UpdateRatings();
+        endOfDayStatsPanel.SetActive(true);
+        endOfDayStatsPanel.transform.Find("Panel").Find("CompletedTasksTxt").GetComponent<TextMeshProUGUI>().text 
+            = GetComponent<TaskManager>().DailyFinished.Count + " tasks completed!";
+
+        endOfDayStatsPanel.transform.Find("Panel").Find("RevenueTxt").GetComponent<TextMeshProUGUI>().text
+            = "$" + String.Format("{0:n0}", DailyPofit) + " earned!";
+        DailyPofit = 0;
+
+        endOfDayStatsPanel.transform.Find("Ratings").GetComponent<Image>().fillAmount = Mathf.Clamp(ratings / 100f, 0f, 1f);
+    }
+    
+    public void UpdateRatings()
+    {
+        float tasksCompleted = GetComponent<TaskManager>().DailyFinished.Count;
+        float targetTasks = GetComponent<TaskManager>().TargetDailyTasks;
+
+        ratings = Mathf.Clamp(Mathf.RoundToInt(((tasksCompleted / targetTasks)*.85f)*100f), 25, 100);
     }
     
     // Start is called before the first frame update

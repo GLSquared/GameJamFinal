@@ -14,7 +14,7 @@ public class GridBuildingManager : MonoBehaviour
     public float wallThickness = .25f;
     public int buildingSize = 3;
     private int wallHeight = 1;
-    public List<TileRow> buildingMap = new List<TileRow>();
+    public List<TileRow> buildingMap = new();
 
     //Prefabs
     private GameObject darkTile;
