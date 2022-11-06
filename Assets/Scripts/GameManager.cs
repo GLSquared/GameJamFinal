@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PopularityLoop());
         desks = new List<Desk>();
         AddOwner();
+        GetComponent<DayController>().enabled = true;
     }
 
     int GetTotalExpenses()
