@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Applicant
 {
@@ -11,8 +13,8 @@ public class Applicant
     public Applicant(Staff staff)
     {
         Staff = staff;
-        Expires = Time.time + MaxTime;
         MaxTime = Random.Range(10, 20);
+        Expires = Time.time + MaxTime;
     }
 }
 
@@ -89,5 +91,10 @@ public class ApplicationManager : MonoBehaviour
         }
 
         //print(Applicants.Count);
+    }
+
+    private void Update()
+    {
+        UpdateApplications();
     }
 }

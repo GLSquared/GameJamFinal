@@ -16,14 +16,27 @@ public class BuildModeManager : MonoBehaviour
         furnitureHolder = GameObject.Find("Furniture").transform;
         if (obj.transform.IsChildOf(furnitureHolder))
         {
-            originalPos = obj.transform.position;
-            selectedObj = obj;
+            GameObject foundFurn = GetTopParent(obj);
+            originalPos = foundFurn.transform.position;
+            selectedObj = foundFurn;
             setFurnLayer(selectedObj, 3);
         }
         else
         {
             selectedObj = Instantiate(obj);
         }
+    }
+    
+    public GameObject GetTopParent(GameObject obj)
+    {
+
+        GameObject top = obj;
+        if (obj.transform.parent != furnitureHolder)
+        {
+            top=GetTopParent(obj.transform.parent.gameObject);
+        }
+        
+        return top;
     }
 
     public void setFurnLayer(GameObject furn, int layerInt)
@@ -63,7 +76,7 @@ public class BuildModeManager : MonoBehaviour
         else
         {
             GameObject newFurn = Instantiate(selectedObj, lastPos, Quaternion.identity, furnitureHolder);
-            setFurnLayer(selectedObj, 0);
+            setFurnLayer(newFurn, 0);
 
             Desk desk = newFurn.GetComponent<Desk>();
             if (desk)
@@ -99,9 +112,10 @@ public class BuildModeManager : MonoBehaviour
                 {
                     if (hit.transform.IsChildOf(furnitureHolder))
                     {
-                        if (hit.transform.gameObject.GetComponent<Desk>())
+                        GameObject furn = GetTopParent(hit.transform.gameObject);
+                        if (furn.GetComponent<Desk>())
                         {
-                            GetComponent<GameManager>().SelectDesk(hit.transform.gameObject.GetComponent<Desk>());
+                            GetComponent<GameManager>().SelectDesk(furn.GetComponent<Desk>());
                         }
                         else
                         {

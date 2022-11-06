@@ -59,6 +59,13 @@ public class StaffManager : MonoBehaviour
             }
         }
     }
+    
+    public void RecruitStaffToDesk(Staff newStaff, Desk desk)
+    {
+        ActiveStaff.Add(newStaff);
+        desk.staff = newStaff;
+        gameManager.AddCharacterToDesk(desk.gameObject);
+    }
 
     public void FireStaff(Staff staff)
     {

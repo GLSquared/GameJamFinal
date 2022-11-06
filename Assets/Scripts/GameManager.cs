@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour
 
     public GameObject selectedStaffPanel;
     public GameObject selectedDesk;
+    public GameObject staffHiringPanel;
     
     //staffPanelStuff
     public GameObject panelHireBtn;
     public GameObject panelTaskBar;
     public GameObject panelTaskTitle;
+
+    public StaffManager staffManager;
     
     public void SelectDesk(Desk desk)
     {
@@ -37,9 +40,9 @@ public class GameManager : MonoBehaviour
         {
             //if has staff
             selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = "Vacant";
-            panelHireBtn.SetActive(true);
-            panelTaskBar.SetActive(false);
-            panelTaskTitle.SetActive(false);
+            panelHireBtn.SetActive(false);
+            panelTaskBar.SetActive(true);
+            panelTaskTitle.SetActive(true);
         }
         else
         {
@@ -52,10 +55,11 @@ public class GameManager : MonoBehaviour
         
         
     }
-
-    public void CancelSelectedStaffPanel()
+    
+    public void SelectDeskToHireFor()
     {
-        selectedStaffPanel.SetActive(false);
+        staffHiringPanel.GetComponent<ApplicantListManager>().selectedDesk = selectedDesk.GetComponent<Desk>();
+        staffHiringPanel.SetActive(true);
     }
 
     public void MoveSelectedDesk()
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PopularityLoop()
     {
-        float playerIncrease = (ratings/100f) * GetComponent<StaffManager>().ActiveStaff.Count * Random.Range(3, 4);
+        float playerIncrease = (ratings/100f) * staffManager.ActiveStaff.Count * Random.Range(3, 4);
         yield return new WaitForSeconds(GetComponent<DayController>().timeConstant*(5f/60f));
 
         popularity += Mathf.RoundToInt(playerIncrease);
@@ -88,8 +92,7 @@ public class GameManager : MonoBehaviour
         GameObject ownerDesk = (GameObject)Instantiate(Resources.Load("Buyables/Desk"), new Vector3(1, .5f, 1), Quaternion.identity, 
             GameObject.Find("Furniture").transform);
         GetComponent<BuildModeManager>().setFurnLayer(ownerDesk, 0);
-
-        GetComponent<StaffManager>().CreateOwner("gab");
+        ownerDesk.GetComponent<Desk>().staff = staffManager.CreateOwner("gab");
         AddCharacterToDesk(ownerDesk);
     }
 
@@ -106,6 +109,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        staffManager = GetComponent<StaffManager>();
         StartCoroutine(ProfitLoop());
         StartCoroutine(PopularityLoop());
         desks = new List<Desk>();
@@ -119,5 +123,21 @@ public class GameManager : MonoBehaviour
         staffTxt.text = GetComponent<StaffManager>().ActiveStaff.Count.ToString();
         cashTxt.text = "$" + String.Format("{0:n0}", cash);
         popularityTxt.text = String.Format("{0:n0}", popularity);
+        
+        if (selectedStaffPanel.activeSelf)
+        {
+            Desk desk = selectedDesk.GetComponent<Desk>();
+            Task currentTask = staffManager.GetTaskFromStaff(desk.staff);
+            if (currentTask != null)
+            {
+                panelTaskBar.transform.Find("Inner").GetComponent<RectTransform>().offsetMax = new Vector2(currentTask.Completion/100f, 1f);
+                panelTaskBar.transform.Find("TaskName").GetComponent<TextMeshProUGUI>().text = currentTask.Name;
+            }
+            else
+            {
+                panelTaskBar.transform.Find("Inner").GetComponent<RectTransform>().offsetMax = new Vector2(1f, 1f);
+                panelTaskBar.transform.Find("TaskName").GetComponent<TextMeshProUGUI>().text = "No tasks given";
+            }
+        }
     }
 }
