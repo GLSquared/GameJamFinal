@@ -19,7 +19,7 @@ public class StaffManager : MonoBehaviour
 
     public List<Staff> ActiveStaff = new List<Staff>();
 
-    public TextAsset namesTxt;
+    private TextAsset namesTxt;
 
     public int managersOwned = 0;
 
@@ -29,7 +29,7 @@ public class StaffManager : MonoBehaviour
         SkillType skillType = SkillType.Developer;
         float skill = Random.Range(1f, 75f);
         int expectedWage = (int)(Mathf.Pow(skill, 1.15f) / 1.5f);
-        if (Random.Range(1, 8) > 6 && managersOwned <= 2)
+        if (Random.Range(1, 8) > 6 && managersOwned < 2)
         {
             skillType = SkillType.Manager;
             skill = 100f;
@@ -46,6 +46,12 @@ public class StaffManager : MonoBehaviour
         SkillType skillType = SkillType.Developer;
         float skill = Random.Range(1f, askingWage * 2.5f);
         int expectedWage = (int)(skill / 2.5f);
+        if (Random.Range(1, 8) > 6 && managersOwned < 2)
+        {
+            skillType = SkillType.Manager;
+            skill = 100f;
+            expectedWage = (int)(Mathf.Pow(skill, 1.15f) / 1.5f);
+        }
         int maxDayWithBadMood = Random.Range(5, 10);
 
         return new Staff(name, expectedWage, skillType, skill, maxDayWithBadMood);
@@ -83,7 +89,12 @@ public class StaffManager : MonoBehaviour
     {
         ActiveStaff.Add(newStaff);
         desk.staff = newStaff;
+
+        if (newStaff.Type == SkillType.Manager)
+            managersOwned++;
+
         GetComponent<TaskManager>().CreateNewTask();
+
         gameManager.AddCharacterToDesk(desk.gameObject);
     }
 
@@ -133,7 +144,7 @@ public class StaffManager : MonoBehaviour
 
             if (staff.Type == SkillType.Manager)
             {
-                List<Desk> inRadius = gameManager.GetDesksInRadius(staff, 2f);
+                List<Desk> inRadius = gameManager.GetDesksInRadius(staff, 2.5f);
                 List<Staff> notWorking = new List<Staff>();
 
                 foreach (Desk desk in inRadius)

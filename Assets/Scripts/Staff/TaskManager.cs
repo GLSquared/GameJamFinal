@@ -14,6 +14,7 @@ public class TaskManager : MonoBehaviour
 
     public List<Task> Tasks = new List<Task>();
     public List<Task> DailyFinished = new List<Task>();
+
     public int TargetDailyTasks;
 
     public Task RandomTask()
@@ -31,7 +32,7 @@ public class TaskManager : MonoBehaviour
 
     public void CompleteTask(Task task)
     { 
-        GameObject instance = Instantiate(prefabEffect, gameManager.GetDeskFromStaff(task.AssignedTo).gameObject.transform);
+        Instantiate(prefabEffect, gameManager.GetDeskFromStaff(task.AssignedTo).gameObject.transform);
         task.AssignedTo = null;
         DailyFinished.Add(task);
         Tasks.Remove(task);

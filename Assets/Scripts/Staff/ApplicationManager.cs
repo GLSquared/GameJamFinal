@@ -28,7 +28,7 @@ public class ApplicationManager : MonoBehaviour
     public List<Applicant> Applicants = new();
 
     private int availableDesks = 0;
-    private int MaxApplicants = 10;
+    private int MaxApplicants = 8;
 
 
     public void PopulateApplicants()
@@ -43,6 +43,13 @@ public class ApplicationManager : MonoBehaviour
 
     public void AcceptApplicant(Applicant applicant)
     {
+        staffManager.RecruitStaff(applicant.Staff);
+        Applicants.Remove(applicant);
+    }
+
+    public void AcceptApplicant(Applicant applicant, Desk desk)
+    {
+        staffManager.RecruitStaffToDesk(applicant.Staff, desk);
         Applicants.Remove(applicant);
     }
 
