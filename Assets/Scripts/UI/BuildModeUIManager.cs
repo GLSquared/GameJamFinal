@@ -30,6 +30,12 @@ public class BuildModeUIManager : MonoBehaviour
             GameObject buyableFrame = Instantiate(itemBuyableFrame, transform.Find("Mask").GetChild(0));
             GameObject previewObj = Instantiate(buildable, buyableFrame.transform.Find("GameObject").transform);
             previewObj.transform.localPosition = Vector3.zero;
+
+            foreach(MeshRenderer rend in previewObj.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>())
+            {
+                rend.material = new Material(Shader.Find("Custom/Backobjects"));
+            }
+
             buyableFrame.transform.Find("ItemTitle").GetComponent<TextMeshProUGUI>().text = buildable.name;
             buyableFrame.transform.Find("ItemPrice").GetComponent<TextMeshProUGUI>().text = "$" + buildable.GetComponent<Buyable>().price;
             
@@ -66,6 +72,7 @@ public class BuildModeUIManager : MonoBehaviour
         
     }
 
+    /*
     private void Update()
     {
         Image mask = transform.Find("Mask").GetComponent<Image>();
@@ -90,4 +97,5 @@ public class BuildModeUIManager : MonoBehaviour
                 
         }
     }
+    */
 }

@@ -2,6 +2,7 @@ Shader "Custom/Backobjects"
 {
     SubShader
     {
+
         Pass
         {
             Stencil
