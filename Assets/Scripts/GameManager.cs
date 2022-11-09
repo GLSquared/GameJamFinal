@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public GameObject panelHireBtn;
     public GameObject panelTaskBar;
     public GameObject panelTaskTitle;
+    public GameObject panelMoodBar;
     public GameObject giveTaskBtn;
 
     public StaffManager staffManager;
@@ -79,10 +80,12 @@ public class GameManager : MonoBehaviour
             {
                 selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = desk.staff.Name + "\nManager";
                 panelTaskBar.SetActive(false);
+                panelMoodBar.SetActive(true);
                 panelTaskTitle.SetActive(false);
             } else
             {
                 panelTaskBar.SetActive(true);
+                panelMoodBar.SetActive(true);
                 panelTaskTitle.SetActive(true);
             }
             panelHireBtn.SetActive(false);
@@ -93,6 +96,7 @@ public class GameManager : MonoBehaviour
             selectedStaffPanel.transform.Find("StaffTitle").GetComponent<TextMeshProUGUI>().text = "Vacant";
             panelHireBtn.SetActive(true);
             panelTaskBar.SetActive(false);
+            panelMoodBar.SetActive(false);
             panelTaskTitle.SetActive(false);
         }
     }
@@ -242,6 +246,21 @@ public class GameManager : MonoBehaviour
             Task currentTask = staffManager.GetTaskFromStaff(desk.staff);
             
             giveTaskBtn.SetActive((currentTask==null) && (desk.staff!=null) && (desk.staff.Type != Staff.SkillType.Manager));
+
+            if (desk.staff != null)
+            {
+                float moodPerc = desk.staff.Mood / 100f;
+                panelMoodBar.transform.Find("Inner").GetComponent<RectTransform>().anchorMax = new Vector2(moodPerc, 1f);
+                panelMoodBar.transform.Find("Inner").GetComponent<Image>().color =
+                    Color.Lerp( new Color(255f / 255f, 88f/255f, 117f / 255f),
+                        new Color(144f / 255f, 1f, 88f / 255f), moodPerc);
+                
+                panelMoodBar.transform.Find("TaskName").GetComponent<TextMeshProUGUI>().color =
+                    Color.Lerp( new Color(106f / 255f, 32f/255f, 31f / 255f),
+                        new Color(54f / 255f, 106f/255f, 31 / 255f), moodPerc);
+
+                panelMoodBar.transform.Find("TaskName").GetComponent<TextMeshProUGUI>().text = "Mood: " + Mathf.RoundToInt(moodPerc*100f) + "%";
+            }
             
             if (currentTask != null)
             {
