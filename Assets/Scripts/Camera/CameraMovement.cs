@@ -92,7 +92,7 @@ public class CameraMovement : MonoBehaviour
 
 
             distance = (lastTile.transform.position - firstTile.transform.position).magnitude;
-            print(distance);
+            
 
             minX = -distance*2;
             maxX = distance/2;

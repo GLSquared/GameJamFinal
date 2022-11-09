@@ -31,7 +31,7 @@ public class Staff
         ExpectedWage = expectedWage;
         Type = type;
         Skill = skill;
-        Mood = 100f;
+        Mood = UnityEngine.Random.Range(70f, 100f);
         MaxDaysWithBadMood = maxDaysWithBadMood;
         DaysWithBadMood = 0;
     }
@@ -48,20 +48,22 @@ public class Staff
             {
                 Mood = Math.Clamp(Mood - 0.01f, 0f, 100f);
             }
+            Mood = Mood - ((float)Math.Log(Mood));
         }
     }
 
     public void UpdateDay()
     {
         if (Type == SkillType.Developer)
-            if (Mood <= 0f)
+            if (Mood <= 40f)
             {
                 DaysWithBadMood++;
+                Mood = Mood - (Mood*0.02f);
             }
             else if (Mood > 0f && DaysWithBadMood > 0)
             {
                 DaysWithBadMood--;
-
+                
                 if (Mood > 50f && Skill < 100f)
                 {
                     Skill = Math.Clamp(Skill + (0.001f * Mood) * (float)Math.Log(Skill), Skill, 100f);
@@ -77,4 +79,6 @@ public class Staff
     {
         return Name + " " + Type + " " + ExpectedWage +  " " + Skill;
     }
+
+    
 }

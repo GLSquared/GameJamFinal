@@ -136,6 +136,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PopularityLoop());
     }
 
+    IEnumerator MoodLoop()
+    {
+        foreach (Staff staff in staffManager.ActiveStaff)
+        {
+            staff.UpdateHour();
+            print(staff.Mood);
+        }
+        yield return new WaitForSeconds(GetComponent<DayController>().timeConstant);
+        StartCoroutine(MoodLoop());
+    }
+
     void AddOwner()
     {
         //add owner desk
@@ -199,6 +210,7 @@ public class GameManager : MonoBehaviour
         staffManager = GetComponent<StaffManager>();
         StartCoroutine(ProfitLoop());
         StartCoroutine(PopularityLoop());
+        StartCoroutine(MoodLoop());
         desks = new List<Desk>();
         AddOwner();
         GetComponent<DayController>().enabled = true;

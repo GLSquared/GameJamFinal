@@ -51,6 +51,7 @@ public class DayController : MonoBehaviour
                 {
                     dayNumber++;
                     GetComponent<GameManager>().EndDayStats();
+                    GetComponent<StaffManager>().UpdateDay();
                     isDayOver = true;
                     emitter.Stop();
                     enabled = false;
