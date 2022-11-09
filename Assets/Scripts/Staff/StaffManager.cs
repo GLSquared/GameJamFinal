@@ -133,12 +133,12 @@ public class StaffManager : MonoBehaviour
 
             if (staff.Type == SkillType.Manager)
             {
-                List<Desk> inRadius = gameManager.GetDesksInRadius(staff, 10f);
+                List<Desk> inRadius = gameManager.GetDesksInRadius(staff, 2f);
                 List<Staff> notWorking = new List<Staff>();
 
                 foreach (Desk desk in inRadius)
                 {
-                    if (desk.staff != null && GetTaskFromStaff(desk.staff) == null)
+                    if (desk.staff != null && GetTaskFromStaff(desk.staff) == null && desk.staff.Type != SkillType.Manager)
                     {
                         List<Task> availableTasks = taskManager.GetUnassignedTasks();
 
