@@ -78,6 +78,8 @@ public class CameraMovement : MonoBehaviour
         var skewedInput = matrix.MultiplyPoint3x4(-newPosition);
         // translates to the opposite direction of mouse position.
         transform.position += skewedInput * dragSpeed * Time.deltaTime;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), transform.position.y, Mathf.Clamp(transform.position.z, minZ, maxZ));
+
     }
 
     IEnumerator GetClampDistance()
@@ -94,10 +96,10 @@ public class CameraMovement : MonoBehaviour
             distance = (lastTile.transform.position - firstTile.transform.position).magnitude;
             
 
-            minX = -distance*2;
-            maxX = distance/2;
-            minZ = -distance*2;
-            maxZ = distance/2;
+            minX = -distance * 3;
+            maxX = distance*3;
+            minZ = -distance*3;
+            maxZ = distance * 3;
         }
     }
 
